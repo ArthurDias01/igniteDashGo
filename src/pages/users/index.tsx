@@ -1,16 +1,17 @@
 import {
   Box, Flex,
-  Heading, Button,
+  Button,
   Icon, Table,
   Thead, Tr,
   Th, Checkbox,
-  Tbody, Td,
-  Text,
+  Tbody,
 } from '@chakra-ui/react';
-import { RiAddLine, RiPencilLine } from 'react-icons/ri';
+import { RiAddLine } from 'react-icons/ri';
 import { Header } from '../../components/Header';
+import { HeadingComponent } from '../../components/Heading';
 import { Pagination } from '../../components/Pagination';
 import { Sidebar } from '../../components/Sidebar';
+import { UserInfo } from '../../components/UserInfo';
 
 
 export default function UserList() {
@@ -21,7 +22,7 @@ export default function UserList() {
         <Sidebar />
         <Box flex='1' borderRadius={8} bg='gray.800' p='8'>
           <Flex mb='8' justify='space-between' align='center'>
-            <Heading size='lg' fontWeight='normal'>Usuários</Heading>
+            <HeadingComponent title='Usuários' />
             <Button as='a' size='sm' fontSize='sm' colorScheme='pink'
               leftIcon={<Icon as={RiAddLine} fontSize='20' />}
             >
@@ -40,29 +41,18 @@ export default function UserList() {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td px='6'>
-                  <Checkbox colorScheme='pink' />
-                </Td>
-                <Td px='6'>
-                  <Box>
-                    <Text fontWeight='bold'>Arthur Dias</Text>
-                    <Text fontSize='sm' color='gray.300'>arthursantos01@gmail.com</Text>
-                  </Box>
-                </Td>
-                <Td>04 Ago 21</Td>
-                <Td>
-                  <Button
-                    as='a'
-                    size='sm'
-                    fontSize='sm'
-                    colorScheme='facebook'
-                    leftIcon={<Icon as={RiPencilLine} fontSize='16' />}
-                  >
-                    Editar
-                  </Button>
-                </Td>
-              </Tr>
+              <UserInfo
+                name='Arthur Dias'
+                email='arthursantos01@gmail.com'
+                createdAt='04 Ago 2021' />
+              <UserInfo
+                name='Arthur Dias'
+                email='arthursantos01@gmail.com'
+                createdAt='04 Ago 2021' />
+              <UserInfo
+                name='Arthur Dias'
+                email='arthursantos01@gmail.com'
+                createdAt='04 Ago 2021' />
             </Tbody>
           </Table>
           <Pagination />
