@@ -1,4 +1,4 @@
-import { Box, Checkbox, Td, Text, Tr } from '@chakra-ui/react';
+import { Box, Checkbox, Td, Text, Tr, useBreakpointValue } from '@chakra-ui/react';
 import { EditButton } from '../EditButton'
 
 interface UserInfoProps {
@@ -8,20 +8,25 @@ interface UserInfoProps {
 }
 
 export function UserInfo({ name, email, createdAt }: UserInfoProps) {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    md: true,
+    lg: true,
+  })
   return (
     <Tr>
-      <Td px='6'>
+      <Td px={['4', '4', '6']}>
         <Checkbox colorScheme='pink' />
       </Td>
-      <Td px='6'>
+      <Td px={['4', '4', '6']}>
         <Box>
           <Text fontWeight='bold'>{name}</Text>
           <Text fontSize='sm' color='gray.300'>{email}</Text>
         </Box>
       </Td>
-      <Td>{createdAt}</Td>
+      {isWideVersion && <Td>{createdAt}</Td>}
       <Td>
-        <EditButton />
+        {isWideVersion && <EditButton />}
       </Td>
     </Tr>
   );
