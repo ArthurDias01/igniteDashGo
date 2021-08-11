@@ -9,7 +9,7 @@ export function NotificationsNav() {
       pr={['6', '8']}
       py='1'
       color='gray.300'
-      borderrightwith={20}
+      borderRightWidth={1}
       borderColor='gray.700'
     >
       <Icon as={RiNotificationLine} fontSize='20' />
