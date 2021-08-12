@@ -24,6 +24,7 @@ export default function UserList() {
 
   const { data, isLoading, error, isFetching, refetch } = useUsers(page);
 
+  console.log(data)
   const isWideVersion = useBreakpointValue({
     base: false,
     md: true,

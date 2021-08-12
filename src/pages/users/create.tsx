@@ -36,7 +36,7 @@ export default function CreateUser() {
     const response = await api.post('users', {
       user: {
         ...user,
-        created_at: (new Date()).toLocaleString('pt-BR', {
+        createdAt: new Date().toLocaleString('pt-BR', {
           day: '2-digit',
           month: 'short',
           year: 'numeric'
@@ -57,7 +57,6 @@ export default function CreateUser() {
 
   const handleCreateUser: SubmitHandler<CreateUserFormData> = async (values) => {
     await createUser.mutateAsync(values)
-    console.log(values)
     router.push('/users')
   }
   return (
