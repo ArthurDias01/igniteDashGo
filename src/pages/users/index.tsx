@@ -8,37 +8,21 @@ import {
   useBreakpointValue, Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useState } from 'react';
 import { RiAddLine, RiLoader3Line } from 'react-icons/ri';
 import { Header } from '../../components/Header';
 import { HeadingComponent } from '../../components/Heading';
 import { Pagination } from '../../components/Pagination';
 import { Sidebar } from '../../components/Sidebar';
 import { UserInfo } from '../../components/UserInfo';
-import { useQuery } from 'react-query';
-
+import { api } from '../../services/api';
+import { useUsers } from '../../services/hooks/useUsers';
+import { queryClient } from '../../services/queryClient';
 
 export default function UserList() {
+  const [page, setPage] = useState(1);
 
-  const { data, isLoading, error, isFetching, refetch, } = useQuery('usersCache', async () => {
-    const response = await fetch('http://localhost:3000/api/users');
-    const data = await response.json();
-
-    const users = data.users.map(user => {
-      return {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric',
-        })
-      }
-    });
-    return users;
-  }, {
-    staleTime: 1000 * 5, //5 segundos para considerar obsoleto
-  })
+  const { data, isLoading, error, isFetching, refetch } = useUsers(page);
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -46,7 +30,14 @@ export default function UserList() {
     lg: true
   });
 
-
+  async function handlePrefetchUser(userId: string) {
+    await queryClient.prefetchInfiniteQuery(['user', userId], async () => {
+      const response = await api.get(`users/${userId}`);
+      return response.data;
+    }, {
+      staleTime: 1000 * 60 * 10, // 10 minutos
+    })
+  }
 
   return (
     <Box>
@@ -95,18 +86,24 @@ export default function UserList() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {data.map((user) => {
+                  {data.users.map((user) => {
                     return (
                       <UserInfo
+                        handlePrefetchUser={handlePrefetchUser}
+                        key={user.id}
+                        userId={user.id}
                         name={user.name}
                         email={user.email}
                         createdAt={user.createdAt} />
                     )
                   })}
-
                 </Tbody>
               </Table>
-              <Pagination />
+              <Pagination
+                totalCountOfRegisters={data.totalCount}
+                currentPage={page}
+                onPageChange={setPage}
+              />
             </>
           )}
         </Box>
