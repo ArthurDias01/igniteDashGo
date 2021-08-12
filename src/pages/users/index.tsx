@@ -9,7 +9,8 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { RiAddLine, RiLoader3Line } from 'react-icons/ri';
+import { RiAddLine } from 'react-icons/ri';
+import { AiOutlineReload } from 'react-icons/ai'
 import { Header } from '../../components/Header';
 import { HeadingComponent } from '../../components/Heading';
 import { Pagination } from '../../components/Pagination';
@@ -51,7 +52,7 @@ export default function UserList() {
             <HStack align='center' justify='flex-end' spacing='4'>
               {!isLoading && (
                 <Button as='a' size='sm' fontSize='sm' colorScheme='pink' onClick={() => refetch()}
-                  leftIcon={<Icon as={RiLoader3Line} fontSize='20' />}
+                  leftIcon={<Icon as={AiOutlineReload} fontSize='20' />}
                 >
                   Atualizar
                 </Button>

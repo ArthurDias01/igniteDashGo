@@ -36,13 +36,10 @@ export default function CreateUser() {
     const response = await api.post('users', {
       user: {
         ...user,
-        createdAt: new Date().toLocaleString('pt-BR', {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric'
-        }),
+        created_at: new Date(),
       }
     })
+    console.log(response.data.user)
     return response.data.user;
   }, {
     onSuccess: () => {
