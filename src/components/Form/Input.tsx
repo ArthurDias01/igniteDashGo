@@ -7,14 +7,14 @@ interface InputProps extends ChakraInputProps {
   label?: string;
   error?: FieldError;
 }
-const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ name, label, error = null, ...rest }: InputProps, ref) => {
+const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ name, label, error = null, type, ...rest }: InputProps, ref) => {
   return (
     <FormControl isInvalid={!!error}>
       {/* {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>} <- caso label exista aparece formlabel} */}
       {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>}
       <ChakraInput
         name={name}
-        type='email'
+        type={type}
         id={name}
         focusBorderColor='pink.500'
         bg='gray.900'

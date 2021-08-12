@@ -49,7 +49,7 @@ export default function UserList() {
             <HeadingComponent title='Usuários' isFetching={isFetching} isLoading={isLoading} />
             <HStack align='center' justify='flex-end' spacing='4'>
               {!isLoading && (
-                <Button as='a' size='sm' fontSize='sm' colorScheme='pink' onClick={refetch}
+                <Button as='a' size='sm' fontSize='sm' colorScheme='pink' onClick={() => refetch()}
                   leftIcon={<Icon as={RiLoader3Line} fontSize='20' />}
                 >
                   Atualizar
